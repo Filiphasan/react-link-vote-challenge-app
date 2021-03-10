@@ -1,20 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;400;700&display=swap');
 * {
   margin: 0;
   padding: 0;
 }
 
-html {
+html, div {
   box-sizing: border-box;
-  outline: none;
   font-size: 10px;
 }
 
-.submit-container {
-  padding: 1rem;
-  margin-top: 2rem !important;
+body {
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .container {
-  width: 50%;
+  width: 40%;
   margin: 0 auto;
 }

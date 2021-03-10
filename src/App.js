@@ -1,14 +1,24 @@
+import React, { useState, useEffect } from 'react'
 import './App.css';
+import Alert from './components/Alert/Alert';
+import List from './components/List/List';
+import Navbar from './components/Navbar/Navbar';
+import Popup from './components/Popup/Popup';
+import Submit from './components/Submit/Submit';
 
-function App() {
+const App = () => {
+  const [links, setLinks] = useState([]);
+  const [alert, setAlert] = useState({ msg: '', visible: false });
+  const [link, setLink] = useState({ name: '', url: '', points: 0 });
+  const [popup, setPopup] = useState(false);
   return (
-    <div className="container submit-container">
-      <div className="submit-box">
-        <div className="submit">
-          <a href="#" className="submit-link"><i className="fas fa-plus"></i></a>
-        </div>
-      </div>
-    </div>
+    <>
+      <Alert visible={alert.visible} />
+      <Popup visible={popup} />
+      <Navbar />
+      <Submit />
+      <List />
+    </>
   );
 }
 
