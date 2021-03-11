@@ -1,4 +1,4 @@
-export const getDataToLS = (key) => {
+export const getDatasToLS = (key) => {
     let items;
     if (localStorage.getItem(key) === null) {
         items = [];
@@ -7,9 +7,13 @@ export const getDataToLS = (key) => {
     }
     return items;
 }
-export const setDataToLS = (key, data) => {
-    let items = getDataToLS(key);
+export const setDatasToLS = (key, data) => {
+    let items = getDatasToLS(key);
     items.push(data);
     localStorage.setItem(key, JSON.stringify(data));
 }
-export default getDataToLS;
+
+export const setDataToLS = (key, data) => {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+export default getDatasToLS;

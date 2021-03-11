@@ -1,6 +1,6 @@
 import React from 'react'
 import './Link.css'
-const Link = ({ link }) => {
+const Link = ({ link, removeLink }) => {
     return (
         <div className="link" >
             <div className="link-point">
@@ -17,7 +17,7 @@ const Link = ({ link }) => {
                     <button>&#129139; Down Vote</button>
                 </div>
             </div>
-            <button className="highlight-btn" title="Remove">-</button>
+            <button className="highlight-btn" title="Remove" onClick={() => { removeLink(link) }}>-</button>
         </div>
     )
 }
