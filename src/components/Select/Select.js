@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './Select.css'
 
 const Select = ({ sortAtoZ, sortZtoA }) => {
-    const [value, setValue] = useState();
     const onChangeHandler = (e) => {
-        setValue(e.target.value);
+        const value = e.target.value;
+        switch (value) {
+            case "0":
+                sortZtoA();
+                break;
+
+            case "1":
+                sortAtoZ();
+                break;
+        }
     }
-    useEffect(() => {
-        if (value == 0) {
-            sortZtoA();
-        }
-        else if (value == 1) {
-            sortAtoZ();
-        }
-    }, [value])
     return (
         <div className="select-order">
-            <select value={value} onChange={onChangeHandler} >
-                <option value="-1" disabled selected>Order by</option>
-                <option value="0">Most Voted (Z → A)</option>
-                <option value="1">Most Voted (A → Z)</option>
+            <select onChange={onChangeHandler}>
+                <option default value="-1">Order by</option>
+                <option value="0" >Most Voted (Z → A)</option>
+                <option value="1" >Most Voted (A → Z)</option>
             </select>
             <p>▼</p>
         </div>
