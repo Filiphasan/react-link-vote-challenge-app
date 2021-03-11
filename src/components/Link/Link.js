@@ -2,7 +2,7 @@ import React from 'react'
 import './Link.css'
 const Link = ({ link }) => {
     return (
-        <div className="link">
+        <div className="link" >
             <div className="link-point">
                 <h3>{link.points}</h3>
                 <p>POINTS</p>

@@ -4,7 +4,7 @@ import Select from '../Select/Select'
 import './List.css'
 
 
-const List = ({ links, sortAtoZ, sortZtoA }) => {
+const List = ({ links, sortAtoZ, sortZtoA, removeLinkClickHandler }) => {
     return (
         <div className="container">
             <div className="list">
@@ -12,7 +12,9 @@ const List = ({ links, sortAtoZ, sortZtoA }) => {
                 {
                     links.map(link => {
                         return (
-                            <Link key={link.url} link={link} />
+                            <div key={link.url} onClick={removeLinkClickHandler(link)}>
+                                <Link link={link} />
+                            </div>
                         )
                     })
                 }
