@@ -8,23 +8,23 @@ import Submit from './components/Submit/Submit';
 import getDataToLS, { setDataToLS } from './components/Helper';
 
 const App = () => {
-  const [links, setLinks] = useState([]);
+  const [links, setLinks] = useState(getDataToLS("links"));
   const [alert, setAlert] = useState({ msg: '', visible: false });
   const [link, setLink] = useState({ name: '', url: '', points: 0 });
   const [popup, setPopup] = useState(false);
   useEffect(() => {
-    setLinks(getDataToLS("links"));
+    console.log(links);
   }, [])
 
   const sortAtoZ = () => {
-    let data = links.sort((a, b) => (a.points > b.points) ? 1 : -1);
-    console.log(data);
-    setLinks(data);
+    let data1 = links.sort((a, b) => (a.points > b.points) ? 1 : -1);
+    setLinks([]);
+    setLinks(data1);
   }
   const sortZtoA = () => {
-    let data = links.sort((a, b) => (b.points > a.points) ? 1 : -1);
-    console.log(data);
-    setLinks(data);
+    let data2 = links.sort((a, b) => (b.points > a.points) ? 1 : -1);
+    setLinks([]);
+    setLinks(data2);
   }
   return (
     <>
