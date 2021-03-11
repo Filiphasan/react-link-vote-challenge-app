@@ -1,10 +1,10 @@
 import React from 'react'
-import Link from '../Link/Link'
+import Linkdetail from '../Linkdetail/Linkdetail'
 import Select from '../Select/Select'
 import './List.css'
 
 
-const List = ({ links, sortAtoZ, sortZtoA, removeLink }) => {
+const List = ({ links, sortAtoZ, sortZtoA, removeLink, setLinkVote }) => {
     return (
         <div className="container">
             <div className="list">
@@ -12,7 +12,7 @@ const List = ({ links, sortAtoZ, sortZtoA, removeLink }) => {
                 {
                     links.map(link => {
                         return (
-                            <Link key={link.url} link={link} removeLink={removeLink} />
+                            <Linkdetail key={link.url} setLinkVote={setLinkVote} link={link} removeLink={removeLink} />
                         )
                     })
                 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import './Link.css'
-const Link = ({ link, removeLink }) => {
+import './Linkdetail.css'
+const Link = ({ link, removeLink, setLinkVote }) => {
     return (
         <div className="link" >
             <div className="link-point">
@@ -13,8 +13,8 @@ const Link = ({ link, removeLink }) => {
                     <p>({link.url})</p>
                 </div>
                 <div className="link-vote">
-                    <button>&#129137; Up Vote</button>
-                    <button>&#129139; Down Vote</button>
+                    <button onClick={() => { setLinkVote(link, true) }}>&#129137; Up Vote</button>
+                    <button onClick={() => { setLinkVote(link, false) }}>&#129139; Down Vote</button>
                 </div>
             </div>
             <button className="highlight-btn" title="Remove" onClick={() => { removeLink(link) }}>-</button>

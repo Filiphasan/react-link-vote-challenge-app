@@ -5,7 +5,7 @@ const Alert = ({ alert }) => {
     if (alert.visible) {
         return (
             <div className="alert-box">
-                <b>{alert.msg}</b> removed.
+                {alert.msg}
             </div>
         )
     } else {

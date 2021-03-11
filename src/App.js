@@ -5,16 +5,13 @@ import List from './components/List/List';
 import Navbar from './components/Navbar/Navbar';
 import Popup from './components/Popup/Popup';
 import Submit from './components/Submit/Submit';
-import getDatasToLS, { setDatasToLS, setDataToLS } from './components/Helper';
+import getDatasToLS, { setDatasToLS, removeDataToLS } from './components/Helper';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Add from './components/Add/Add';
 
 const App = () => {
-  const [links, setLinks] = useState([
-    { name: 'stackoverflow', url: 'https://stackoverflow.com/', points: 0 },
-    { name: 'hackerrank', url: 'https://www.hackerrank.com/', points: 2 },
-    { name: 'bionluk', url: 'https://bionluk.com/', points: 0 }
-  ]);
+  const [links, setLinks] = useState(getDatasToLS("links"));
   const [alert, setAlert] = useState({ msg: '', visible: false });
-  const [link, setLink] = useState({ name: '', url: '', points: 0 });
   const [popup, setPopup] = useState({ msg: '', lnk: {}, visible: false });
 
   useEffect(() => {
@@ -23,6 +20,11 @@ const App = () => {
     }, 2000);
   }, [alert])
 
+  const addLink = (link) => {
+    console.log(link);
+    setDatasToLS("links", link);
+    setLinks(getDatasToLS("links"));
+  }
   const sortAtoZ = () => {
     let datas = [...links];
     let data1 = datas.sort((a, b) => (a.points > b.points) ? 1 : -1);
@@ -34,21 +36,46 @@ const App = () => {
     setLinks(data2);
   }
   const doRemoveLink = (link) => {
-    setLinks(links.filter(item =>
+    const data = setLinks(links.filter(item =>
       item !== link
     ));
-    setAlert({ msg: link.name, visible: true });
+    setAlert({ msg: `${link.name} removed.`, visible: true });
+    removeDataToLS("links", data);
+  }
+  const setLinkVote = (link, type) => {
+    let newArr = [...links];
+    if (type) {
+      console.log("Artı bir");
+      const linkIndex = links.findIndex(item => item == link);
+      newArr[linkIndex] = { ...newArr[linkIndex], points: newArr[linkIndex].points + 1 };
+      setLinks(newArr);
+    } else {
+      console.log("Eksi bir");
+      const linkIndex = links.findIndex(item => item == link);
+      newArr[linkIndex] = { ...newArr[linkIndex], points: newArr[linkIndex].points - 1 };
+      setLinks(newArr);
+    }
+    removeDataToLS("links", newArr);
   }
   const removeLink = (link) => {
     setPopup({ msg: link.name, lnk: link, visible: true });
   }
   return (
     <>
-      <Alert alert={alert} />
-      <Popup popup={popup} setPopup={setPopup} doRemoveLink={doRemoveLink} />
-      <Navbar />
-      <Submit />
-      <List links={links} sortAtoZ={sortAtoZ} sortZtoA={sortZtoA} removeLink={removeLink} />
+      <BrowserRouter>
+        <Alert alert={alert} />
+        <Popup popup={popup} setPopup={setPopup} doRemoveLink={doRemoveLink} />
+        <Navbar />
+        <Switch>
+          <Route exact path="/">
+            <Submit />
+            <List links={links} setLinkVote={setLinkVote} sortAtoZ={sortAtoZ} sortZtoA={sortZtoA} removeLink={removeLink} />
+          </Route>
+          <Route path="/add">
+            <Add setAlert={setAlert} addLink={addLink} />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </>
   );
 }
