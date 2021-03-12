@@ -13,6 +13,11 @@ const App = () => {
   const [links, setLinks] = useState(getDatasToLS("links"));
   const [alert, setAlert] = useState({ msg: '', visible: false });
   const [popup, setPopup] = useState({ msg: '', lnk: {}, visible: false });
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPage = Math.ceil(links.length / 5);
+  const indexOfLast = currentPage * 5;
+  const indexOfFirst = indexOfLast - 5;
+  const currentLinks = links.slice(indexOfFirstPos, indexOfLastPos);
 
   useEffect(() => {
     setTimeout(() => {
@@ -21,7 +26,6 @@ const App = () => {
   }, [alert])
 
   const addLink = (link) => {
-    console.log(link);
     setDatasToLS("links", link);
     setLinks(getDatasToLS("links"));
   }
@@ -36,25 +40,22 @@ const App = () => {
     setLinks(data2);
   }
   const doRemoveLink = (link) => {
-    const data = setLinks(links.filter(item =>
+    const data = links.filter(item =>
       item !== link
-    ));
+    );
+    setLinks(data);
     setAlert({ msg: `${link.name} removed.`, visible: true });
     removeDataToLS("links", data);
   }
   const setLinkVote = (link, type) => {
     let newArr = [...links];
+    const linkIndex = links.findIndex(item => item == link);
     if (type) {
-      console.log("Artı bir");
-      const linkIndex = links.findIndex(item => item == link);
       newArr[linkIndex] = { ...newArr[linkIndex], points: newArr[linkIndex].points + 1 };
-      setLinks(newArr);
     } else {
-      console.log("Eksi bir");
-      const linkIndex = links.findIndex(item => item == link);
       newArr[linkIndex] = { ...newArr[linkIndex], points: newArr[linkIndex].points - 1 };
-      setLinks(newArr);
     }
+    setLinks(newArr);
     removeDataToLS("links", newArr);
   }
   const removeLink = (link) => {
